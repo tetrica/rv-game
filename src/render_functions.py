@@ -1,5 +1,6 @@
 import tcod as libtcod
 
+from components.question import Question
 
 def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, message_log, screen_width, screen_height, bar_width, panel_height, panel_y, colors):
     if fov_recompute:
@@ -22,6 +23,10 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
 
     # Draw all entities in the list
     for entity in entities:
+        if entity is Question:
+            if entity.question.answered:
+                continue
+
         draw_entity(con, entity, fov_map)
 
     libtcod.console_blit(con, 0, 0, screen_width, screen_height, 0, 0, 0)
