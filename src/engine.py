@@ -2,6 +2,7 @@ import tcod as libtcod
 
 from entity import Entity, get_blocking_entities_at_location
 from fov_functions import initialize_fov, recompute_fov
+from game_messages import MessageLog, Message
 from input_handlers import handle_keys
 from map_objects.game_map import GameMap
 from render_functions import clear_all, render_all
@@ -13,6 +14,10 @@ def main():
     bar_width = 20
     panel_height = 7
     panel_y = screen_height - panel_height
+
+    message_x = bar_width + 2
+    message_width = screen_width - bar_width - 2
+    message_height = panel_height - 1
 
     map_width = 80
     map_height = 43
@@ -52,6 +57,8 @@ def main():
     fov_recompute = True
     fov_map = initialize_fov(game_map)
 
+    message_log = MessageLog(message_x, message_width, message_height)
+
     key = libtcod.Key()
     mouse = libtcod.Mouse()
 
@@ -61,8 +68,8 @@ def main():
         if fov_recompute:
             recompute_fov(fov_map, player.x, player.y, fov_radius, fov_light_walls, fov_algorithm)
 
-        render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, screen_width, screen_height,
-            bar_width, panel_height, panel_y, colors
+        render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, message_log, screen_width,
+            screen_height, bar_width, panel_height, panel_y, colors
         )
 
         fov_recompute = False
@@ -87,8 +94,8 @@ def main():
                 target = get_blocking_entities_at_location(entities, destination_x, destination_y)
 
                 if target:
-                    print('Você encontrou um desafio!')
-                    target.question.get_answer(con, screen_height)
+                    message_log.add_message(Message(target.question.text))
+                    # target.question.get_answer(con, screen_height)
                 else:
                     player.move(dx, dy)
 
