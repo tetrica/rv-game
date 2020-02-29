@@ -10,8 +10,12 @@ def main():
     screen_width = 80
     screen_height = 50
 
+    bar_width = 20
+    panel_height = 7
+    panel_y = screen_height - panel_height
+
     map_width = 80
-    map_height = 45
+    map_height = 43
 
     room_max_size = 10
     room_min_size = 6
@@ -81,6 +85,7 @@ def main():
 
                 if target:
                     print('Você encontrou um desafio!')
+                    target.question.get_answer(con, screen_height)
                 else:
                     player.move(dx, dy)
 

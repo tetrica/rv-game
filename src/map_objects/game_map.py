@@ -1,6 +1,7 @@
 import tcod as libtcod
 from random import randint
 
+from components.question import Question
 from entity import Entity
 from map_objects.rectangle import Rect
 from map_objects.tile import Tile
@@ -100,7 +101,9 @@ class GameMap:
             y = randint(room.y1 + 1, room.y2 - 1)
 
             if not any([entity for entity in entities if entity.x == x and entity.y == y]):
-                challenge = Entity(x, y, '?', libtcod.red, 'challenge', blocks=True)
+                # Here we need get a question randomly
+                question = Question('lorem ipsum?', 'a')
+                challenge = Entity(x, y, '?', libtcod.red, 'challenge', blocks=True, question=question)
 
                 entities.append(challenge)
 
