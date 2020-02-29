@@ -95,9 +95,6 @@ def main():
 
                 if target:
                     message_log.add_message(Message(target.question.text))
-                    libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS, key, mouse)
-
-                    target.question.get_answer(key.kv)
                 else:
                     player.move(dx, dy)
 
