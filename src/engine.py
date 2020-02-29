@@ -22,9 +22,9 @@ def main():
     }
 
     player = Entity(screen_width // 2, screen_height // 2, '@', libtcod.white)
-    npc = Entity(screen_width // 2 - 5, screen_height // 2, '@', libtcod.yellow)
+    # npc = Entity(screen_width // 2 - 5, screen_height // 2, '@', libtcod.yellow)
 
-    entities = [npc, player]
+    entities = [player]
 
     libtcod.console_set_custom_font('img01.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_TCOD)
 
