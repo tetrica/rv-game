@@ -16,9 +16,15 @@ def main():
     room_min_size = 6
     max_rooms = 30
 
+    fov_algorithm = 0
+    fov_light_walls = True
+    fov_radius = 10
+
     colors = {
         'dark_wall': libtcod.Color(0, 0, 100),
-        'dark_ground': libtcod.Color(50, 50, 150)
+        'dark_ground': libtcod.Color(50, 50, 150),
+        'light_wall': libtcod.Color(130, 110, 50),
+        'light_ground': libtcod.Color(200, 180, 50)
     }
 
     player = Entity(screen_width // 2, screen_height // 2, '@', libtcod.white)
@@ -34,6 +40,8 @@ def main():
 
     game_map = GameMap(map_width, map_height)
     game_map.make_map(max_rooms, room_min_size, room_max_size, map_width, map_height, player)
+
+    fov_recompute = True
 
     key = libtcod.Key()
     mouse = libtcod.Mouse()
